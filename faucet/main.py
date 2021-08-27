@@ -89,12 +89,14 @@ def faucet(token, address):
                     parent = header.parent
                     content = parent.find_element_by_css_selector("div.card-content")
                     print("Reason:",content.get_attribute("innerHTML"))
+            print("retrying")
             time.sleep(60)
             faucet(token, address)
         driver.close()
         driver.quit()
     except Exception as e:
         print("Error:", e)
+        print("retrying")
         time.sleep(60)
         faucet(token, address)
 
