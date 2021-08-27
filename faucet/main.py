@@ -1,6 +1,7 @@
 from selenium import webdriver
 from enum import Enum
 import time
+from datetime import datetime
 from decouple import config
 import os
 
@@ -93,5 +94,12 @@ def faucet(token, address):
     except Exception as e:
         print("Error:", e)
 
-# 0xf5751Aef65a4ED92C109f045964a5B0C6cf7E1Fe
-faucet(tokens.LINK, address)
+# faucet(token, address)
+
+# while True:
+#     now = datetime.now()
+#     if (now.hour == 7 and now.minute == 0) or (now.hour == 18 and now.minute == 0):
+#         faucet(token, address)
+#         time.sleep(60)
+
+    
