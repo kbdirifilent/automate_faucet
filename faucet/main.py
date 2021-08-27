@@ -10,9 +10,8 @@ os.environ['MOZ_HEADLESS'] = '1'
 address = config('ADDRESS')
 token = config('TOKEN')
 
-class tokens(Enum):
-    MATIC = "MATIC"
-    LINK = "LINK"
+print("address", address)
+print("token", token)
 
 driver = ""
 
@@ -28,6 +27,8 @@ def getDriver():
         # print(e)
         getDriver()
 
+getDriver()
+
 
 def faucet(token, address):
     try:
@@ -35,14 +36,13 @@ def faucet(token, address):
         # driver = webdriver.Remote(command_executor="http://localhost:4444",
         #     desired_capabilities=webdriver.DesiredCapabilities.CHROME, options=options)
         # #driver = webdriver.Firefox()
-        getDriver()
         driver.get("https://faucet.matic.network")
         
 
-        if token == tokens.MATIC:
+        if token == "MATIC":
             radioElement = driver.find_element_by_css_selector("input[type='radio'][value='maticToken']")
             radioElement.click()
-        elif token == tokens.LINK:
+        elif token == "LINK":
             radioElement = driver.find_element_by_css_selector("input[type='radio'][value='link']")
             radioElement.click()
         else:
@@ -89,17 +89,21 @@ def faucet(token, address):
                     parent = header.parent
                     content = parent.find_element_by_css_selector("div.card-content")
                     print("Reason:",content.get_attribute("innerHTML"))
+            time.sleep(60)
+            faucet(token, address)
         driver.close()
         driver.quit()
     except Exception as e:
         print("Error:", e)
+        time.sleep(60)
+        faucet(token, address)
 
 faucet(token, address)
 
-while True:
-    now = datetime.now()
-    if (now.hour == 7 and now.minute == 0) or (now.hour == 18 and now.minute == 0):
-        faucet(token, address)
-        time.sleep(60)
+# while True:
+#     now = datetime.now()
+#     if (now.hour == 7 and now.minute == 0) or (now.hour == 18 and now.minute == 0):
+#         faucet(token, address)
+#         time.sleep(60)
 
     
