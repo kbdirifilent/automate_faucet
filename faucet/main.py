@@ -94,12 +94,12 @@ def faucet(token, address):
     except Exception as e:
         print("Error:", e)
 
-# faucet(token, address)
+faucet(token, address)
 
-# while True:
-#     now = datetime.now()
-#     if (now.hour == 7 and now.minute == 0) or (now.hour == 18 and now.minute == 0):
-#         faucet(token, address)
-#         time.sleep(60)
+while True:
+    now = datetime.now()
+    if (now.hour == 7 and now.minute == 0) or (now.hour == 18 and now.minute == 0):
+        faucet(token, address)
+        time.sleep(60)
 
     
