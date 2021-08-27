@@ -1,0 +1,27 @@
+version: "3.3"
+
+networks:
+  test-network:
+    driver: bridge
+
+services:
+
+  seleniumgrid:
+    image: selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210823      
+    ports:
+      - "4444:4444"
+    networks:
+      - test-network
+
+  faucet:
+    image: faucet:latest
+    links:
+      - seleniumgrid:seleniumgrid
+    build: faucet
+    networks:
+      - test-network
+    environment:
+      - "ADDRESS=0xf5751Aef65a4ED92C109f045964a5B0C6cf7E1Fe"
+      - "TOKEN=LINK"
+
+
